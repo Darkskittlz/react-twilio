@@ -1,5 +1,12 @@
+[build]
+    command = 'CI= npm run build'
+    functions = 'netlify/functions'
+    publish = 'build'
 
+[functions]
+    directory = "/netlify/functions/"
 
-[[edge_functions]]
-function = "sms"
-path = "/auth"
+[[redirects]]
+    from = "/*"
+    to = "/"
+    status = 200
