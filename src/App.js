@@ -21,13 +21,7 @@ const GridContainer = styled.div`
   color: white;
 `
 
-const LoginContainer = styled.div`
-  width: 40%;
-  backdrop-filter: blur(10px);
-  border: 2px solid black;
-  height: 300px;
-  border-radius: 10px;
-`
+
 
 
 
@@ -35,13 +29,11 @@ const App = () => {
   return (
     <div className="App">
         <GridContainer>
-          <LoginContainer>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/Create" element={<Create />} />
-              <Route path="/Login" element={<Login />} />
-            </Routes>
-          </LoginContainer>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Create" element={<Create />} />
+            <Route path="/Login" element={<Login />} />
+          </Routes>
         </GridContainer>
     </div>
   );
