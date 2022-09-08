@@ -1,4 +1,8 @@
-# Login Auth W/ Twilio & ReactJS 
+# Login Auth W/ Twilio, GraphQL & ReactJS 
+
+##GraphQL Server
++ npm run dev - Local GraphQL playground
++ npm start - Local Dev Server
 
 
 ## Resources
