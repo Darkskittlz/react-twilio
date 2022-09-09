@@ -1,7 +1,9 @@
 import React, {useState } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import "../App.css"
+import "../Styles/App.css"
+import { Modal } from "../components/modal";
+
 
 // const accountSid = process.env.TWILIO_ACCOUNT_SID;
 // const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -39,17 +41,23 @@ const FormContainer = styled.div`
     justify-content: center;
 `
 
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
+const Button3 = styled.h2`
+    color: blue;
+    margin-top: 20px;
+    font-size: 19px;
+    cursor: pointer;
+`
+
+const ButtonContainer = styled.div`
+    display: flex;
+    width: 50%;
+    position: absolute;
+    margin-top: 5%;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    grid-gap: 20px;
+`
 
   const errors = {
     email: "invalid email",
@@ -59,6 +67,11 @@ const FormContainer = styled.div`
 const Login = () => {
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+      setShowModal((prev) => !prev);
+    };
 
     const renderErrorMessage = (name) =>
     name === errorMessages.name && (
@@ -102,6 +115,8 @@ const Login = () => {
                 </div>
                 <div className="button-container">
                   <input type="submit" />
+                  <Button3 onClick={openModal}>Forgot Password?</Button3>
+                  <Modal showModal={showModal} setShowModal={setShowModal} />
                 </div>
               </form>
             </div>
@@ -116,6 +131,7 @@ const Login = () => {
                 </Link>
                 {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
             </div>
+
         </FormContainer>
     </GridContainer>
   )

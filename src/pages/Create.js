@@ -1,7 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState, useRef } from "react";
 import styled from 'styled-components'
-import { Routes, Route, Link } from 'react-router-dom'
-import "../App.css"
+import { Routes, Route, Link, useSearchParams } from 'react-router-dom'
+import axios from 'axios';
+import "../Styles/App.css"
+import { Modal2 } from "../components/modal2";
 
 
 const GridContainer = styled.div`
@@ -32,25 +34,58 @@ const FormContainer = styled.div`
   border-radius: 10px;
 `
 
+const Button = styled.button`
+  background-color: white;
+  border: 0.5px solid aliceblue;
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+  padding: 15px;
+  width: 50%;
+`
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
 const Create = () => {
+    const form = useRef();
+    const [showModal, setShowModal] = useState(false)
     const [errorMessages, setErrorMessages] = useState({});
-    const [isSubmitted, setIsSubmitted] = useState(false);
+    
+    const [email, setEmail] = useState(null);
+    const [accountNum, setAccountNum] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [serviceAddress, setServiceAddress] = useState(null);
+
+   
 
     const renderErrorMessage = (name) =>
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
 
+    const sendData2 = async () => {
+      const formattedAccountNum = encodeURIComponent(accountNum)
+      const formattedServiceAddress = encodeURIComponent(serviceAddress)
+      const formattedEmail = encodeURIComponent(email)
+      const formattedUsername = encodeURIComponent(username)
+      const URL = `accountNum=${formattedAccountNum}&email=${formattedEmail}&serviceAddress=${formattedServiceAddress}&username=${formattedUsername}`;
+      const results = await axios.post("./netlify/functions/graphql/?" + URL);
+      console.log("results", results)
+      console.log("URL", URL);
+    }
+    
     const handleSubmit = (event) => {
-        // Prevent page reload
-        event.preventDefault();
+      event.preventDefault();
+      sendData2();
+    }
+    
+    const openModal = () => {
+      setShowModal((prev) => !prev);
+    };
 
-        var { email, pass } = document.forms[0];
-
-        // const userData = database.find((user) => user.username === email.value);
-        //     // Compare user info
-
-        };
 
   return (
     <GridContainer>
@@ -58,23 +93,55 @@ const Create = () => {
             <Link to="/" style={{textDecoration: "none"}}>
                 <Title>Create Account</Title>
             </Link>
-            <form onSubmit={handleSubmit}>
+            <form ref={form} id="myForm" onSubmit={(event) => handleSubmit(event)}>
+                <div className="input-container">
+                    <label>Username </label>
+                    <input 
+                      type="text"
+                      id="username"
+                      required 
+                      onChange={(event) => setUsername(event.target.value)}
+                    />
+                </div>
                 <div className="input-container">
                     <label>Email </label>
-                    <input type="text" name="email" required />
-                    {renderErrorMessage("email")}
+                    <input 
+                      type="text"
+                      id="email"
+                      required 
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
                 </div>
                 <div className="input-container">
-                    <label>Password </label>
-                    <input type="password" name="pass" required />
-                    {renderErrorMessage("pass")}
+                    <label>Account # </label>
+                    <input 
+                      type="text"
+                      name="AccountNum"
+                      id="accountNum"
+                      required 
+                      onChange={(event) => setAccountNum(event.target.value)}
+                    />
                 </div>
-                <div className="button-container">
-                    <input type="submit" />
+                <div className="input-container">
+                    <label>Service Address </label>
+                    <input 
+                      type="text"
+                      name="serviceAddress"
+                      required 
+                      onChange={(event) => setServiceAddress(event.target.value)}
+                    />
                 </div>
-            </form>
-        </FormContainer>
-    
+                <ButtonContainer>
+                  <Button 
+                    id="btn" 
+                    type="submit" 
+                    value="Submit"
+                    onClick={openModal}
+                  >Send</Button>
+                </ButtonContainer>
+              </form>
+          </FormContainer>
+          <Modal2 showModal={showModal} setShowModal={setShowModal} />
     </GridContainer>
   )
 }

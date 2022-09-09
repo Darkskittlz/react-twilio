@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Routes, Route, Link } from 'react-router-dom'
 import styled from 'styled-components';
 import Home from './pages/Home';
-import './App.css';
+import './Styles/App.css';
 import Create from './pages/Create';
 import Login from './pages/Login';
 

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import { Routes, Route, Link } from 'react-router-dom'
-import { Modal } from "../components/modal";
 
 
 const GridContainer = styled.div`
@@ -69,19 +68,10 @@ const Button2 = styled.button`
     cursor: pointer;
 `
 
-const Button3 = styled.h2`
-    color: blue;
-    margin-top: 20px;
-    font-size: 19px;
-    cursor: pointer;
-`
+
 
 const Home = () => {
-    const [showModal, setShowModal] = useState(false);
 
-    const openModal = () => {
-      setShowModal((prev) => !prev);
-    };
   return (
     <GridContainer>
         <HomeContainer>
@@ -96,8 +86,6 @@ const Home = () => {
                     <Button2>Create Account</Button2>
                 </Link>
             </ButtonContainer>
-            <Button3 onClick={openModal}>Forgot Password?</Button3>
-            <Modal showModal={showModal} setShowModal={setShowModal} />
         </HomeContainer>
     </GridContainer>
   )
