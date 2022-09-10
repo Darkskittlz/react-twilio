@@ -99,7 +99,6 @@ const Create = () => {
                     <input 
                       type="text"
                       id="username"
-                      required 
                       onChange={(event) => setUsername(event.target.value)}
                     />
                 </div>
@@ -108,7 +107,6 @@ const Create = () => {
                     <input 
                       type="text"
                       id="email"
-                      required 
                       onChange={(event) => setEmail(event.target.value)}
                     />
                 </div>
@@ -118,7 +116,6 @@ const Create = () => {
                       type="text"
                       name="AccountNum"
                       id="accountNum"
-                      required 
                       onChange={(event) => setAccountNum(event.target.value)}
                     />
                 </div>
@@ -127,7 +124,6 @@ const Create = () => {
                     <input 
                       type="text"
                       name="serviceAddress"
-                      required 
                       onChange={(event) => setServiceAddress(event.target.value)}
                     />
                 </div>

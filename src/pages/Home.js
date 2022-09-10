@@ -34,9 +34,11 @@ const Title2 = styled.h2`
 const ButtonContainer = styled.div`
     display: flex;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 10%;
     align-content: center;
     justify-content: center;
+    display: flex;
+    flex-direction: column;
     grid-gap: 20px;
 `
 

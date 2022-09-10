@@ -16,11 +16,10 @@ const Background = styled.div`
 
 const ModalWrapper = styled.div`
   top: 50%;
-  left: -50px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   position: relative;
   z-index: 10;
+  justify-content: center;
   align-items: center;
   justify-items: flex-start;
   border-radius: 10px;
@@ -28,19 +27,26 @@ const ModalWrapper = styled.div`
 
 
 
-  const ModalContent = styled.div`
+const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  backdrop-filter: blur(10px);
-  line-height: 1.8;
+  backdrop-filter: blur(30px);
+  line-height: 1.2;
   position: fixed;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
 
   h1 {
     display: flex;
-    color: black;
-    font-size: 12px;
+    color: #ffffff;
+    font-size: 22px;
+    background-color: #000000;
+    box-shadow: 0 0 20px #000000;
+    padding: 10px;
+    border-radius: 10px;
   }
 
   h2 {
@@ -61,9 +67,9 @@ const ModalWrapper = styled.div`
 const CloseModalButton = styled(MdClose)`
   cursor: pointer;
   position: absolute;
-  top: -50px;
   color: black;
-  right: 0;
+  top: -160px;
+  left: 190px;
   height: 20px;
   padding: 0;
   z-index: 10;
@@ -108,13 +114,32 @@ export const Modal2 = ({ showModal, setShowModal }) => {
             <ModalWrapper showModal={showModal}>
               <ModalContent>
                 <h1>Aux Auth</h1>
-                <input type="email" placeholder="test@breezeline.com" style={{textAlign: "center"}}/>
+                <div className="input-container">
+                    <label>Account # </label>
+                    <input 
+                      type="text"
+                      name="AccountNum"
+                      id="accountNum"
+                      required 
+                      onChange={(event) => setAccountNum(event.target.value)}
+                    />
+                </div>
+                <div className="input-container">
+                    <label>Address</label>
+                    <input 
+                      type="text"
+                      name="AccountNum"
+                      id="accountNum"
+                      required 
+                      onChange={(event) => setAccountNum(event.target.value)}
+                    />
+                </div>
                 <Button>Submit</Button>
               </ModalContent>
-              <CloseModalButton
+              {/* <CloseModalButton
                 aria-lable="Close modal"
                 onClick={() => setShowModal((prev) => !prev)}
-              />
+              /> */}
             </ModalWrapper>
           </animated.div>
         </Background>
