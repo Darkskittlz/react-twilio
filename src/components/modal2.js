@@ -1,7 +1,9 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
+import { Modal3 } from "../components/modal3";
+
 
 const Background = styled.div`
   width: 100%;
@@ -46,6 +48,7 @@ const ModalContent = styled.div`
     background-color: #000000;
     box-shadow: 0 0 20px #000000;
     padding: 10px;
+    justify-content: center;
     border-radius: 10px;
   }
 
@@ -80,6 +83,14 @@ const Button = styled.button`
 `
 
 export const Modal2 = ({ showModal, setShowModal }) => {
+  const form = useRef();
+  const [errorMessages, setErrorMessages] = useState({});  
+  const [address, setAddress] = useState(null);
+  const [address2, setAddress2] = useState(null);
+  const [accountNum, setAccountNum] = useState(null);
+  const [city, setCity] = useState(null);
+  const [state, setState] = useState(null);
+  const [zip, setZip] = useState(null);
   const modalRef = useRef();
 
   const animation = useSpring({
@@ -96,14 +107,16 @@ export const Modal2 = ({ showModal, setShowModal }) => {
     }
   };
 
-  const keyPress = useCallback(
-    (e) => {
-      if (e.key === "Escape" && showModal) {
-        setShowModal(false);
-      }
-    },
-    [setShowModal, showModal]
-  );
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    sendData2();
+  }
+
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
+
+
 
 
   return (
@@ -113,6 +126,7 @@ export const Modal2 = ({ showModal, setShowModal }) => {
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalContent>
+              <form ref={form} id="myForm" onSubmit={(event) => handleSubmit(event)}>
                 <h1>Aux Auth</h1>
                 <div className="input-container">
                     <label>Account # </label>
@@ -128,13 +142,54 @@ export const Modal2 = ({ showModal, setShowModal }) => {
                     <label>Address</label>
                     <input 
                       type="text"
-                      name="AccountNum"
-                      id="accountNum"
+                      name="address"
+                      placeholder="Street Address"
+                      id="address"
                       required 
-                      onChange={(event) => setAccountNum(event.target.value)}
+                      onChange={(event) => setAddress(event.target.value)}
+                    />
+                    <input 
+                      type="text"
+                      name="address2"
+                      placeholder="Address 2"
+                      id="address2"
+                      required 
+                      onChange={(event) => setAddress2(event.target.value)}
+                    />
+                    <input 
+                      type="text"
+                      name="City"
+                      placeholder="City"
+                      id="City"
+                      required 
+                      onChange={(event) => setCity(event.target.value)}
+                    />
+                    <input 
+                      type="text"
+                      name="State"
+                      placeholder="State"
+                      id="State"
+                      required 
+                      onChange={(event) => setState(event.target.value)}
+                    />
+                    <input 
+                      type="text"
+                      name="zip"
+                      placeholder="Zip Code"
+                      id="zip"
+                      required 
+                      onChange={(event) => setZip(event.target.value)}
                     />
                 </div>
-                <Button>Submit</Button>
+                <Button
+                  id="btn" 
+                  type="submit" 
+                  value="Submit"
+                  onClick={openModal}
+                >Submit</Button>
+                <Modal3 showModal={showModal} setShowModal={setShowModal} />
+
+              </form>
               </ModalContent>
               {/* <CloseModalButton
                 aria-lable="Close modal"
